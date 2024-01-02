@@ -6,7 +6,11 @@ In this series, we'll dive into handling network requests and managing the state
 Video Series: https://www.youtube.com/watch?v=ZYd1RavJv74&list=PLgRx2Eap1Wm3iA244YyW9pLSOBGoVAmYT
 
 Packages:
+
 https://pub.dev/packages/dio
+
 https://pub.dev/packages/flutter_riverpod
+
 https://pub.dev/packages/freezed
+
 https://pub.dev/packages/fpdart
