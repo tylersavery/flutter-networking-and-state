@@ -1,12 +1,16 @@
 import 'package:fl_network/src/models/game.dart';
 import 'package:fl_network/src/services/game_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class GameListProvider extends StateNotifier<List<Game>> {
-  final Ref ref;
-  GameListProvider(this.ref) : super([]) {
+part 'game_list_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class GameList extends _$GameList {
+  @override
+  List<Game> build() {
     load();
+    return [];
   }
 
   Future<void> load() async {
@@ -26,7 +30,3 @@ class GameListProvider extends StateNotifier<List<Game>> {
     });
   }
 }
-
-final gameListProvider = StateNotifierProvider<GameListProvider, List<Game>>((ref) {
-  return GameListProvider(ref);
-});

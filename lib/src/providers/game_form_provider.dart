@@ -3,17 +3,24 @@ import 'package:fl_network/src/providers/game_detail_provider.dart';
 import 'package:fl_network/src/providers/game_list_provider.dart';
 import 'package:fl_network/src/services/game_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class GameFormProvider extends StateNotifier<Game> {
-  final Ref ref;
+part 'game_form_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class GameForm extends _$GameForm {
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController consoleController = TextEditingController();
   final TextEditingController releaseYearController = TextEditingController();
 
-  GameFormProvider(this.ref, Game initialState) : super(initialState) {
+  @override
+  Game build() {
+    print("build");
+
+    state = Game.empty();
+
     updateControllers();
 
     nameController.addListener(() {
@@ -27,6 +34,8 @@ class GameFormProvider extends StateNotifier<Game> {
     releaseYearController.addListener(() {
       state = state.copyWith(releaseYear: int.tryParse(releaseYearController.text) ?? 0);
     });
+
+    return Game.empty();
   }
 
   load(Game game) {
@@ -78,6 +87,7 @@ class GameFormProvider extends StateNotifier<Game> {
     if (!formKey.currentState!.validate()) {
       return left(null);
     }
+
     final result = await GameService().save(state);
 
     return result.fold((e) => left(e), (game) {
@@ -88,7 +98,3 @@ class GameFormProvider extends StateNotifier<Game> {
     });
   }
 }
-
-final gameFormProvider = StateNotifierProvider<GameFormProvider, Game>((ref) {
-  return GameFormProvider(ref, Game.empty());
-});

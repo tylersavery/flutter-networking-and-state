@@ -1,5 +1,4 @@
 import 'package:fl_network/src/components/game_detail.dart';
-import 'package:fl_network/src/models/game.dart';
 import 'package:fl_network/src/providers/game_detail_provider.dart';
 import 'package:fl_network/src/providers/game_form_provider.dart';
 import 'package:fl_network/src/providers/game_list_provider.dart';
